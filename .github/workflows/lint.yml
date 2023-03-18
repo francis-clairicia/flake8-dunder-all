@@ -1,0 +1,45 @@
+name: Lint
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+    paths:
+      - '**.pyi?'
+      - 'pdm.lock'
+      - 'pyproject.toml'
+      - '.github/workflows/lint.yml'
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - '*'
+    paths:
+      - '**.pyi?'
+      - 'pdm.lock'
+      - 'pyproject.toml'
+      - '.github/workflows/lint.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pdm-project/setup-pdm@v3
+        with:
+          python-version: '3.10'
+          cache: true
+          cache-dependency-path: '**/pdm.lock'
+      - name: Install dependencies
+        run: pdm install
+      - name: Run mypy
+        run: pdm run -v mypy

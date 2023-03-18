@@ -1,0 +1,50 @@
+default_language_version:
+  python: python3.10
+minimum_pre_commit_version: '2.20.0'
+
+ci:
+  skip: [mypy]
+
+repos:
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: mypy --no-incremental --config-file=pyproject.toml src
+        language: system
+        files: ^(src/)
+        types_or: [python, pyi]
+        require_serial: true
+        pass_filenames: false
+  - repo: https://github.com/PyCQA/isort
+    rev: '5.12.0'  # Keep in sync with requirements-dev.txt
+    hooks:
+      - id: isort
+        exclude: ^(devtools|\.github)/
+        args: ['--filter-files', '--settings-file', 'pyproject.toml']
+  - repo: https://github.com/psf/black
+    rev: '23.1.0'  # Keep in sync with requirements-dev.txt
+    hooks:
+      - id: black
+        exclude: ^(\.github)/
+        args: ['--config', 'pyproject.toml']
+  - repo: https://github.com/PyCQA/flake8
+    rev: '6.0.0'  # Keep in sync with requirements-dev.txt
+    hooks:
+      - id: flake8
+        exclude: ^(devtools|\.github)/
+        args: ['--config', '.flake8']
+  - repo: https://github.com/aio-libs/sort-all
+    rev: 'v1.2.0'
+    hooks:
+      - id: sort-all
+        exclude: ^(\.github)/
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 'v4.4.0'
+    hooks:
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-toml
+      - id: check-yaml
