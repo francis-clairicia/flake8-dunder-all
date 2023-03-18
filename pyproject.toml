@@ -33,6 +33,8 @@ Homepage = "https://github.com/francis-clairicia/flake8-dunder-all"
 DAL = "flake8_dunder_all:DunderAll"
 
 ############################ pdm configuration ############################
+[tool.pdm.scripts]
+mypy = "mypy --config-file=pyproject.toml --pretty src"
 
 [tool.pdm.dev-dependencies]
 dev = [
