@@ -23,7 +23,7 @@ repos:
         exclude: ^(devtools|\.github)/
         args: ['--filter-files', '--settings-file', 'pyproject.toml']
   - repo: https://github.com/psf/black
-    rev: '23.1.0'  # Keep in sync with requirements-dev.txt
+    rev: '23.3.0'  # Keep in sync with requirements-dev.txt
     hooks:
       - id: black
         exclude: ^(\.github)/
@@ -40,7 +40,7 @@ repos:
       - id: sort-all
         exclude: ^(\.github)/
   - repo: https://github.com/pdm-project/pdm
-    rev: '2.4.9'
+    rev: '2.7.4'
     hooks:
       - id: pdm-lock-check
   - repo: https://github.com/pre-commit/pre-commit-hooks
