@@ -40,7 +40,7 @@ repos:
       - id: sort-all
         exclude: ^(\.github)/
   - repo: https://github.com/pdm-project/pdm
-    rev: '2.7.4'
+    rev: '2.8.0a2'
     hooks:
       - id: pdm-lock-check
   - repo: https://github.com/pre-commit/pre-commit-hooks
